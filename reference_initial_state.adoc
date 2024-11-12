@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: reference_initial_state.html 
+keywords: install, installing, initial state, cluster initial state 
+summary: 部署叢集後、您應該瞭解叢集的初始狀態、並視環境需求設定叢集。 
+---
+= 部署後叢集的初始狀態
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+部署叢集後、您應該瞭解叢集的初始狀態、並視環境需求設定叢集。
+
+建立一個包含多項特性的叢集。ONTAP Select
+
+
+NOTE: 限制 ONTAP 系統管理員帳戶的角色和權限、可能會限制 ONTAP Select 部署管理叢集的能力。有關詳細信息，請參閱知識庫文章link:https://kb.netapp.com/onprem/ontap/ONTAP_Select/OTS_Deploy_cluster_refresh_fails_with_error%3A_ONTAPSelectSysCLIVersionFailed_zapi_returned_bad_status_0%3A_None["OTS 部署叢集重新整理失敗、並出現錯誤"^]。
+
+.生命
+指派了兩種類型的客戶指定生命期：
+
+* 叢集管理（每個叢集一個）
+* 節點管理（每個節點一個）
+
+
+.SVM
+兩個管理SVM處於作用中狀態：
+
+* 預設SVM
+* 叢集 SVM
+
+
+.集合體
+即會建立根Aggregate。
+
+.功能
+所有功能均已獲得授權且可供使用。既是支援功能、也是支援功能的功能。SnapLock FabricPool
+
+
+NOTE: 沒有建立資料SVM。此外、多節點叢集還有一個內部網路、其中包含自動產生的LIF。
+
+.相關資訊
+* link:reference_lic_ontap_features.html["預設啟用的支援功能ONTAP"]
+

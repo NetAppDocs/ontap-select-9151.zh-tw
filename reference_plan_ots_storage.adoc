@@ -1,0 +1,248 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_ots_storage.html 
+keywords: plan, planning, storage, software raid, hardware raid, raid, nvme 
+summary: 有幾個規劃問題與ONTAP Select 不支援的主機儲存有關、您應該考慮這些問題。 
+---
+= 儲存與RAID考量
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+有幾個規劃問題與ONTAP Select 不支援的主機儲存有關、您應該考慮這些問題。
+
+
+NOTE: 中概述了外部儲存設備支援資訊link:reference_plan_ots_vnas.html["VNAS需求ONTAP Select"]。
+
+
+
+== 硬體RAID控制器需求
+
+在Hypervisor主機上部署ONTAP Select 的RAID控制器必須符合多項需求。
+
+
+NOTE: 執行 ONTAP Select 的主機在使用硬體 RAID 控制器或 ONTAP Select 隨附的軟體 RAID 功能時、需要使用本機實體磁碟機。如果您使用ONTAP Select 支援內部儲存設備的支援功能來存取外部儲存設備、則不會使用本機RAID控制器和軟體RAID功能。
+
+RAID控制器的最低需求包括：
+
+* 12 Gbps處理量
+* 512 MB內部電池備援或快閃（SuperCAP）快取
+* 在回寫模式中設定：
++
+** 啟用容錯回復模式以「透過寫入」（如果支援）
+** 啟用「永遠預先讀取」原則（若有支援）
+
+
+* RAID控制器後方的所有本機磁碟都應設定為單一RAID群組；如有需要、可使用多個RAID控制器：
++
+** 停用RAID群組的本機磁碟機快取、這是保留資料完整性的基礎。
+
+
+* LUN組態必須根據下列準則執行：
++
+** 如果 RAID 群組大小超過 64 TB 的最大 LUN 大小、您應該設定多個大小相等的 LUN 、以使用 RAID 群組中的所有可用儲存設備。
+** 如果 RAID 群組大小小於 64 TB 的最大 LUN 大小、您應該設定一個 LUN 、使用 RAID 群組中的所有可用儲存設備。
+
+
+
+
+
+
+== 軟體RAID需求
+
+在 Hypervisor 上部署 ONTAP Select 叢集時、您可以使用 ONTAP Select 提供的軟體 RAID 功能、而非本機硬體 RAID 控制器。在使用軟體RAID部署叢集之前、您必須先瞭解幾項需求與限制。
+
+
+
+=== 一般要求
+
+軟體 RAID 部署環境必須符合下列核心需求：
+
+* VMware ESXi 7.0 GA （建置 15843807 ）或更新版本
+* 不含更新版本的進階授權ONTAP Select
+* 僅限本機SSD磁碟機
+* 將系統磁碟與根與資料集合體分開
+* 主機上沒有硬體RAID控制器
+
+
+
+NOTE: 如果有硬體 RAID 控制器，請參閱link:concept_stor_concepts_chars.html["深度儲存"]一節以瞭解其他組態需求。
+
+
+
+=== ESXi 特定需求
+
+* VMware ESXi 7.0 GA （建置 15843807 ）或更新版本
+* 不支援VMware VMotion、HA和DRS
+* 您無法將軟體 RAID 搭配已從 ONTAP Select 9.4 或更早版本升級的節點使用。如果是這種情況、您需要為軟體 RAID 部署建立新的節點。
+
+
+
+
+=== KVM 特定需求
+
+還有特定的軟體套件組態需求。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap-select/reference_chk_host_prep.html#kvm-hypervisor["準備 Linux 伺服器"] 。
+
+KVM 的媒體期望:: 所使用的 SSD Flash 儲存裝置必須符合下列額外需求：
++
+--
+* SSD 裝置必須透過下列方法、準確且持續地向 Linux 主機回報：
++
+** # cat /sys/block/queue/旋轉 <device>
++
+針對這些命令回報的值必須是「 0 」。
+
+
+
+* 預期裝置會連線至 HBA 、或在某些情況下連線至設定為以 JBOD 模式運作的 RAID 控制器。使用 RAID 控制器時、裝置功能必須在主機上傳遞、而不會過度配置任何 RAID 功能。在 JBOD 模式下使用 RAID 控制器時、您應檢閱 RAID 文件、或視需要聯絡廠商、確保裝置回報的旋轉速度為「 0 」。
+* 有兩個獨立的儲存元件：
++
+** 虛擬機器儲存設備
++
+這是一個 LVM 集區（儲存池）、其中包含用於裝載 ONTAP Select 虛擬機器的系統資料。LVM Pool 必須由高耐受度 Flash 裝置作為後盾、而且可以是 SAS 、 SATA 或 NVMe 。建議使用 NVMe 裝置來改善效能。
+
+** 資料磁碟
++
+這是一組用於資料管理的 SAS 或 SATA SSD 磁碟機。SSD 裝置應為企業級且持久耐用。NVMe 介面不受支援。
+
+
+
+* 所有裝置都必須以 512BPS 格式化。
+
+
+--
+
+
+
+
+=== 節點組態ONTAP Select
+
+您必須依照ONTAP Select 下列方式設定每個節點和Hypervisor主機、以將系統磁碟與根磁碟和資料集合體分開：
+
+* 建立系統儲存資源池、您必須建立一個儲存資源池來儲存ONTAP Select 系統資料。您必須附加儲存資源池、作為設定ONTAP Select 節點的一部分。
+* 連接必要的實體磁碟Hypervisor主機必須連接所需的SSD磁碟、ONTAP Select 並可供該虛擬機器使用。這些磁碟機擁有根集合體和資料集合體。您必須附加儲存磁碟、以作為設定ONTAP Select 節點的一部分。
+
+
+
+
+== 儲存容量限制
+
+在規劃ONTAP Select 非重點部署時、您應該瞭解與儲存配置和使用有關的限制。
+
+最重要的儲存限制如下所示。您也應該檢閱link:https://mysupport.netapp.com/matrix/["NetApp 互通性對照表工具"^]以取得更詳細的資訊。
+
+
+TIP: 執行與儲存分配和使用相關的數項限制。ONTAP Select在您部署ONTAP Select 一個叢集或購買授權之前、您應該先熟悉這些限制。如需詳細資訊，請參閱link:https://docs.netapp.com/us-en/ontap-select/concept_lic_evaluation.html["授權"]一節。
+
+
+
+=== 計算原始儲存容量
+
+此功能對應於連接到該虛擬機器的虛擬資料和根磁碟的總允許大小。ONTAP Select ONTAP Select在分配容量時、您應該考慮這一點。
+
+
+
+=== 單節點叢集的最小儲存容量
+
+在單一節點叢集中分配給節點的儲存資源池大小下限為：
+
+* 評估： 500 GB
+* 正式作業： 1.0 TB
+
+
+正式作業部署的最低配置為 1 TB 用於使用者資料、再加上各種 ONTAP Select 內部程序所使用的約 266 GB 、這被視為必要的額外負荷。
+
+
+
+=== 多節點叢集的最低儲存容量
+
+為多節點叢集中的每個節點配置的儲存資源池大小下限為：
+
+* 評估： 1.9 TB
+* 正式作業： 2.0 TB
+
+
+正式作業部署的最低配置為 2 TB 用於使用者資料、再加上各種 ONTAP Select 內部程序所使用的約 266 GB 、這被視為必要的額外負荷。
+
+[NOTE]
+====
+HA配對中的每個節點都必須具有相同的儲存容量。
+
+在評估 HA 配對的儲存容量時、您必須考慮所有的集合體（根和資料）都會鏡射。因此、每個集合體的每個叢都會使用相同數量的儲存設備。
+
+例如、建立 2TB Aggregate 時、它會將 2TB 分配給兩個 plex 執行個體（ plex0 為 2TB 、 plex1 為 2TB ）、或是總授權儲存容量的 4TB 。
+
+====
+
+
+=== 儲存容量與多個儲存資源池
+
+使用本機直接附加儲存設備、VMware vSAN或外部儲存陣列時、您可以將每ONTAP Select 個節點設定為使用高達400 TB的儲存容量。不過、使用直接附加儲存設備或外部儲存陣列時、單一儲存資源池的最大容量為64 TB。因此、如果您計畫在這些情況下使用超過64 TB的儲存設備、則必須依照下列方式配置多個儲存資源池：
+
+* 在建立叢集的過程中指派初始儲存資源池
+* 透過分配一或多個額外的儲存資源池來增加節點儲存空間
+
+
+
+NOTE: 每個儲存資源池中有2%的緩衝區未使用、因此不需要容量授權。除非指定容量上限、否則此儲存設備不供ONTAP Select 用途。如果指定容量上限、則除非指定的容量落在2%緩衝區內、否則將使用該儲存容量。需要緩衝區、以避免在嘗試分配儲存資源池中的所有空間時、偶爾發生錯誤。
+
+
+
+=== 儲存容量與VMware vSAN
+
+使用VMware vSAN時、資料存放區可能大於64 TB。不過、建立ONTAP Select 這個叢集時、您一開始最多只能配置64 TB。建立叢集之後、您可以從現有的vSAN資料存放區分配額外的儲存空間。可由ONTAP Select 功能區使用的vSAN資料存放區容量、是以VM儲存原則集為基礎。
+
+
+
+=== 最佳實務做法
+
+您應該考慮下列有關Hypervisor核心硬體的建議：
+
+* 單一 ONTAP Select Aggregate 中的所有磁碟機都應該是相同類型。例如、您不應該在相同的集合體中混用HDD和SSD磁碟機。
+
+
+
+
+== 其他磁碟機需求則取決於平台授權
+
+根據平台授權方案、您選擇的磁碟機數量有限。
+
+
+NOTE: 使用本機RAID控制器和磁碟機、以及軟體RAID時、都會套用磁碟機需求。這些要求不適用於ONTAP Select 透過此解決方案存取的外部儲存設備。
+
+.標準
+* 8至60個內部HDD（NL-SAS、SATA、10K SAS）
+
+
+.優質
+* 8至60個內部HDD（NL-SAS、SATA、10K SAS）
+* 4至60個內部SSD
+
+
+.Premium XL
+* 8至60個內部HDD（NL-SAS、SATA、10K SAS）
+* 4至60個內部SSD
+* 4至14個內部NVMe
+
+
+
+NOTE: 含本機DAS磁碟機的軟體RAID可透過優質授權（僅限SSD）和優質XL授權（SSD或NVMe）來支援。
+
+
+
+== 採用軟體RAID的NVMe磁碟機
+
+您可以設定軟體RAID以使用NVMe SSD磁碟機。您的環境必須符合下列需求：
+
+* ONTAP Select 9.7 或更新版本、搭配支援的部署管理公用程式
+* 優質XL平台授權方案或90天試用授權
+* VMware ESXi 6.7版或更新版本
+* 符合規格1.0或更新版本的NVMe裝置
+
+
+您必須先手動設定NVMe磁碟機、才能使用它們。如需詳細資訊、請參閱 link:task_chk_nvme_configure.html["設定主機以使用 NVMe 磁碟機"] 。

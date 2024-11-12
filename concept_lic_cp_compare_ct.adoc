@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_cp_compare_ct.html 
+keywords: license, licensing, capacity pools, capacity tiers, comparing 
+summary: 容量資源池與容量層授權模式之間有幾個差異。 
+---
+= 比較容量資源池和容量層授權
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+下表比較ONTAP Select 了支援的兩種正式作業授權模式。
+
+[cols="20,40,40"]
+|===
+|  | 容量階層 | 容量資源池 
+
+
+| 授權序號 | 由NetApp產生並指派給節點的九位數 | 由NetApp產生並指派給容量資源池的九位數 
+
+
+| 授權鎖定 | 鎖定ONTAP Select 至節點 | 鎖定至License Manager執行個體 
+
+
+| 授權期間 | 永久（不需續約） | 根據購買情況固定持續時間（需要續約） 
+
+
+| 資料Aggregate的租用期間 | 不適用 | 一小時到七天 
+
+
+| 節點序號 | 九位數、等於授權序號 | 20 位數、由授權管理員產生 
+
+
+| 支援 | 附加元件與時間有限 | 包含並共同命名 
+
+
+| 授權類型 | 標準、優質、優質 XL | 標準、優質、優質 XL 
+
+
+| 有試用版授權 | 是的 | 是的 
+
+
+| 正式作業升級評估 | 是的 | 否 
+
+
+| ONTAP Select 虛擬機器調整大小（中小型、中型至大型） | 是的 | 是的 
+
+
+| 強制：授權已過期 | 不適用 | 是（無寬限期） 
+|===

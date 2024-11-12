@@ -1,0 +1,415 @@
+---
+sidebar: sidebar 
+permalink: task_cli_deploy_cluster.html 
+keywords: administer, administering, cli, create cluster, deploy cluster 
+summary: 您可以使用ONTAP Select 隨附於解決方法開發管理公用程式的命令列介面來建立單節點ONTAP Select 或多節點的解決方法叢集。 
+---
+= 使用 CLI 部署 ONTAP Select 叢集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以使用ONTAP Select 隨附於解決方法開發管理公用程式的命令列介面來建立單節點ONTAP Select 或多節點的解決方法叢集。
+
+
+
+== 開始之前
+
+在 Hypervisor 上建立 ONTAP Select 叢集之前、您應該先瞭解必要的準備工作。
+
+
+
+=== 準備將儲存設備附加至 ONTAP Select 節點
+
+如果您使用本機硬體RAID控制器、則必須在每個節點上為系統資料以及根和資料集合體建立至少一個儲存資源池。您必須附加儲存資源池、作為設定ONTAP Select 節點的一部分。
+
+如果您使用軟體RAID、則必須為系統資料建立儲存資源池、並確保SSD磁碟機可用於根集合體和資料集合體。您必須附加儲存資源池和磁碟、作為設定ONTAP Select 節點的一部分。
+
+
+
+=== 提供ONTAP Select 的版本
+
+部署管理公用程式包含ONTAP Select 單一版本的不完整功能。如果您想要使用舊版ONTAP Select 的不實功能來部署叢集、您必須先將ONTAP Select 此不實影像新增至部署執行個體。如需詳細資訊、請參閱 link:task_cli_deploy_image_add.html["新增要部署的 ONTAP Select 映像"] 。
+
+
+
+=== 正式作業部署的授權 ONTAP Select
+
+在ONTAP Select 正式作業環境中部署一個叢集之前、您必須先購買儲存容量授權、然後下載相關的授權檔案。您可以使用_capsityleap__模型在每個節點上授權儲存設備、或使用_capsityPools_模型授權共用資源池。
+
+
+
+== 上傳並註冊授權檔案
+
+取得具有儲存容量的授權檔案後、您必須將包含授權的檔案上傳至部署虛擬機器並加以註冊。
+
+
+NOTE: 如果您只要部署叢集進行評估、可以跳過此步驟。
+
+.開始之前
+您必須擁有管理員使用者帳戶的密碼。
+
+.步驟
+. 在本機工作站的命令Shell中、使用sftp公用程式將授權檔案上傳至部署虛擬機器。
++
+輸出範例
+
++
+....
+sftp admin@10.234.81.101 (provide password when prompted)
+put NLF-320000nnn.txt
+exit
+....
+. 使用SSH以系統管理員帳戶登入部署公用程式CLI。
+. 註冊授權：
++
+`license add -file-name FILENAME`
+
++
+出現提示時、請提供系統管理員帳戶密碼。
+
+. 在系統中顯示授權、以確認已正確新增授權：
++
+`license show`
+
+
+
+
+
+== 新增 Hypervisor 主機
+
+您必須登錄ONTAP Select 每個執行此節點的Hypervisor主機。
+
+[role="tabbed-block"]
+====
+.KVM
+--
+您必須登錄要執行 ONTAP Select 節點的 Hypervisor 主機。在此過程中、部署管理公用程式會驗證至 KVM 主機。
+
+.關於這項工作
+如果需要多個 Hypervisor 主機、您應該使用此程序來新增每個主機。
+
+.步驟
+. 以系統管理員帳戶使用SSH登入部署公用程式CLI。
+. 註冊主機：
++
+[source, asciidoc]
+----
+`host register -name <FQDN|IP> -hypervisor-type KVM -username KVM_USERNAME`
+----
++
+輸出範例
+
++
+[listing]
+----
+host register -name 10.234.81.14 -hypervisor-type KVM -username root
+----
++
+出現提示時、請提供主機帳戶的密碼。
+
+. 顯示主機的狀態、並確認已驗證：
++
+[source, asciidoc]
+----
+host show -name <FQDN|IP> -detailed
+----
++
+輸出範例
+
++
+[listing]
+----
+host show -name 10.234.81.14 -detailed
+----
+
+
+--
+.ESXi
+--
+在此過程中、部署管理公用程式會驗證到管理主機的vCenter伺服器、或直接驗證到ESXi獨立主機。
+
+.關於這項工作
+登錄由vCenter管理的主機之前、您必須先新增vCenter伺服器的管理伺服器帳戶。如果主機不是由vCenter管理、您可以在登錄主機時提供主機認證資料。您應該使用此程序來新增每個主機。
+
+.步驟
+. 以系統管理員帳戶使用SSH登入部署公用程式CLI。
+. 如果主機是由vCenter伺服器管理、請新增vCenter帳戶認證：
++
+`credential add -hostname <FQDN|IP> -type vcenter -username VCENTER_USERNAME`
+
++
+輸出範例
+
++
+....
+credential add -hostname vc.select.company-demo.com -type vcenter -username administrator@vsphere.local
+....
+. 註冊主機：
++
+** 註冊非由 vCenter 管理的獨立主機：
+`host register -name <FQDN|IP> -hypervisor-type ESX -username ESX_USERNAME`
+** 註冊 vCenter 管理的主機：
+`host register -name <FQDN|IP> -hypervisor-type ESX -mgmt-server <FQDN|IP>`
++
+輸出範例
+
++
+....
+host register -name 10.234.81.14 -hypervisor-type ESX -mgmt-server vc.select.company-demo.com
+....
+
+
+. 顯示主機狀態並確認其為驗證狀態。
++
+`host show -name <FQDN|IP> -detailed`
+
++
+輸出範例
+
++
+....
+host show -name 10.234.81.14 -detailed
+....
+
+
+--
+====
+
+
+== 建立及設定ONTAP Select 一個叢集
+
+您必須先建立ONTAP Select 再設定這個叢集。設定叢集之後、您可以設定個別節點。
+
+.開始之前
+您必須決定叢集包含多少節點、並擁有相關的組態資訊。
+
+.關於這項工作
+當您建立ONTAP Select 一個叢集時、部署公用程式會根據您提供的叢集名稱和節點數、自動產生節點名稱。部署也會產生唯一的節點識別碼。
+
+.步驟
+. 以系統管理員帳戶使用SSH登入部署公用程式CLI。
+. 建立叢集：
++
+`cluster create -name CLUSTERNAME -node-count NODES`
+
++
+輸出範例
+
++
+....
+cluster create -name test-cluster -node-count 1
+....
+. 設定叢集：
++
+`cluster modify -name CLUSTERNAME -mgmt-ip IP_ADDRESS -netmask NETMASK -gateway IP_ADDRESS -dns-servers <FQDN|IP>_LIST -dns-domains DOMAIN_LIST`
+
++
+輸出範例
+
++
+....
+cluster modify -name test-cluster -mgmt-ip 10.234.81.20 -netmask 255.255.255.192
+-gateway 10.234.81.1 -dns-servers 10.221.220.10 -dnsdomains select.company-demo.com
+....
+. 顯示叢集的組態和狀態：
++
+`cluster show -name CLUSTERNAME -detailed`
+
+
+
+
+
+== 設定 ONTAP Select 節點
+
+您必須在ONTAP Select E驗 集叢中設定每個節點。
+
+.開始之前
+您必須擁有節點的組態資訊。容量層授權檔案應上傳並安裝在部署公用程式中。
+
+.關於這項工作
+您應該使用此程序來設定每個節點。在此範例中、容量層授權會套用至節點。
+
+.步驟
+. 以系統管理員帳戶使用SSH登入部署公用程式CLI。
+. 確定指派給叢集節點的名稱：
++
+`node show -cluster-name CLUSTERNAME`
+
+. 選取節點並執行基本組態：
+`node modify -name NODENAME -cluster-name CLUSTERNAME -host-name <FQDN|IP> -license-serial-number NUMBER -instance-type TYPE -passthrough-disks false`
++
+輸出範例
+
++
+....
+node modify -name test-cluster-01 -cluster-name test-cluster -host-name 10.234.81.14
+-license-serial-number 320000nnnn -instance-type small -passthrough-disks false
+....
++
+節點的RAID組態會以_passthrough disks_參數表示。如果您使用的是本機硬體RAID控制器、則此值必須為假。如果您使用的是軟體RAID、則此值必須為真。
+
++
+容量層授權用於ONTAP Select 不中斷節點。
+
+. 顯示主機上可用的網路組態：
++
+`host network show -host-name <FQDN|IP> -detailed`
+
++
+輸出範例
+
++
+....
+host network show -host-name 10.234.81.14 -detailed
+....
+. 執行節點的網路組態：
++
+`node modify -name NODENAME -cluster-name CLUSTERNAME -mgmt-ip IP -management-networks NETWORK_NAME -data-networks NETWORK_NAME -internal-network NETWORK_NAME`
+
++
+部署單節點叢集時、您不需要內部網路、而且應該移除內部網路。
+
++
+輸出範例
+
++
+....
+node modify -name test-cluster-01 -cluster-name test-cluster -mgmt-ip 10.234.81.21
+-management-networks sDOT_Network -data-networks sDOT_Network
+....
+. 顯示節點的組態：
++
+`node show -name NODENAME -cluster-name CLUSTERNAME -detailed`
+
++
+輸出範例
+
++
+....
+node show -name test-cluster-01 -cluster-name test-cluster -detailed
+....
+
+
+
+
+== 將儲存設備附加至 ONTAP Select 節點
+
+您必須設定ONTAP Select 由叢集中每個節點使用的儲存設備。每個節點必須一律至少指派一個儲存資源池。使用軟體RAID時、也必須為每個節點指派至少一個磁碟機。
+
+.開始之前
+您必須使用VMware vSphere建立儲存池。如果您使用的是軟體RAID、也需要至少一個可用的磁碟機。
+
+.關於這項工作
+使用本機硬體RAID控制器時、您需要執行步驟1至4。使用軟體RAID時、您需要執行步驟1至6。
+
+.步驟
+. 使用SSH以系統管理員帳戶認證登入部署公用程式CLI。
+. 顯示主機上可用的儲存資源池：
++
+`host storage pool show -host-name <FQDN|IP>`
+
++
+輸出範例
+
++
+[listing]
+----
+host storage pool show -host-name 10.234.81.14
+----
++
+您也可以透過VMware vSphere取得可用的儲存資源池。
+
+. 將可用的儲存資源池附加ONTAP Select 至節點：
++
+`node storage pool attach -name POOLNAME -cluster-name CLUSTERNAME -node-name NODENAME -capacity-limit LIMIT`
+
++
+如果包含-capacity限制參數、請將值指定為GB或TB。
+
++
+輸出範例
+
++
+[listing]
+----
+node storage pool attach -name sDOT-02 -cluster-name test-cluster -
+node-name test-cluster-01 -capacity-limit 500GB
+----
+. 顯示附加至節點的儲存資源池：
++
+`node storage pool show -cluster-name CLUSTERNAME -node-name NODENAME`
+
++
+輸出範例
+
++
+[listing]
+----
+node storage pool show -cluster-name test-cluster -node-name testcluster-01
+----
+. 如果您使用的是軟體RAID、請連接可用的磁碟機：
++
+`node storage disk attach -node-name NODENAME -cluster-name CLUSTERNAME -disks LIST_OF_DRIVES`
+
++
+輸出範例
+
++
+[listing]
+----
+node storage disk attach -node-name NVME_SN-01 -cluster-name NVME_SN -disks 0000:66:00.0 0000:67:00.0 0000:68:00.0
+----
+. 如果您使用的是軟體RAID、請顯示附加至節點的磁碟：
++
+`node storage disk show -node-name NODENAME -cluster-name CLUSTERNAME`
+
++
+輸出範例
+
++
+[listing]
+----
+node storage disk show -node-name sdot-smicro-009a -cluster-name NVME
+----
+
+
+
+
+== 部署ONTAP Select 一個叢集
+
+設定叢集和節點之後、即可部署叢集。
+
+.開始之前
+在部署多節點叢集之前、您應該先執行網路連線檢查程式、以確認內部網路上叢集節點之間的連線能力。
+
+.步驟
+. 以系統管理員帳戶使用SSH登入部署公用程式CLI。
+. 部署ONTAP Select 這個叢集：
++
+`cluster deploy -name CLUSTERNAME`
+
++
+輸出範例
+
++
+[listing]
+----
+cluster deploy -name test-cluster
+----
++
+在系統提示時、提供ONTAP 要用於此管理員帳戶的密碼。
+
+. 顯示叢集狀態、以判斷叢集何時成功部署：
++
+`cluster show -name CLUSTERNAME`
+
+
+
+.完成後
+您應該備份ONTAP Select 「不再部署」組態資料。
