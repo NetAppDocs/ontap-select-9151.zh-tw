@@ -965,7 +965,6 @@
   <block id="614a7784cfcb44e896f7945455f42f95" category="paragraph">不支援多項支援的功能。ONTAP ONTAP Select在大多數情況下、這些功能都需要虛擬ONTAP Select 化的故障環境中無法使用的特殊硬體。</block>
   <block id="7259cd6e0f46eebf9079f25f465a8c63" category="list-text">自主勒索軟體保護（Arp）</block>
   <block id="a847af8ec24fb4acb1f1194041f1508f" category="list-text">叢集 IP 空間不支援任何叢集 IP 空間的修改，包括新增或移除連接埠，虛擬 LAN （ VLAN ）或連結集合群組。</block>
-  <block id="37730150d6378b2a0b04f20595d2d65a" category="list-text">ESXi 8.0 U3.</block>
   <block id="e400270296a47b2c68bd6e799fac399d" category="list-text">不支援Fibre Channel Fibre Channel和Fibre Channel over Ethernet。</block>
   <block id="4980ffa00c517c7cc63e35e9bb2badc8" category="list-text">健全狀況監控傳統的健全狀況監控功能、搭配硬體架ONTAP 構的內部部署、僅適用於基礎硬體元件。由於搭配使用的虛擬化環境ONTAP Select 、因此健全狀況監視器並未啟動。</block>
   <block id="f7ee707e6ddfc29288dbbbdf8cecd146" category="list-text">不支援介面群組介面群組。</block>
@@ -2080,7 +2079,6 @@
   <block id="f371e1e74365e433f105f30c886225bf" category="inline-link-macro">ONTAP Select 9.14.1 版本資訊</block>
   <block id="2dbcb54e47dfd070743afb26077cdc91" category="list-text">如果您執行的 ONTAP Select 版本低於 9.14.1P2 、則應儘快升級至 ONTAP Select Deploy 9.14.1P2 。如需詳細資訊，請參閱<block ref="6635db952aa4480bb5bc591b4d6d32f6" category="inline-link-macro-rx"></block>。</block>
   <block id="aacb1ad8ec74092a13074108a4e20c02" category="list-text">增強VMware ESXi支援</block>
-  <block id="78fb396e8c541b492002e6b94963fe83" category="list-text">ONTAP Select 9.14.1 支援 VMware ESXi 8.0.2 。</block>
   <block id="1e2be71e8b4858c0b3e832cba35731d1" category="section-title">ONTAP Select 9.13.1</block>
   <block id="cdbcb12eafeb6cc1f6a058e9c52a7f8d" category="paragraph">ONTAP Select 9.13.1 包含多項新功能與改良功能。</block>
   <block id="58c277c116ff23ffb9879debb95b4968" category="list-text">支援 NVMe over TCP</block>
@@ -3418,10 +3416,6 @@
   <block id="412c286ae37ff7a40b56dd84c3bf196c" category="section-title">硬體與儲存需求</block>
   <block id="c9dd95ac8795512f2d676118ba8def1a" category="paragraph">叢集擴充和收縮功能受到下列限制：</block>
   <block id="03a645906298706d76817495f4d8708a" category="list-text">支援僅限於在 ESX Hypervisor 主機上建立的叢集。下列 ESX 版本與 ONTAP Select 9.15.1 相容：</block>
-  <block id="ec65581eeb2dfa95316cf6a00d2ff593" category="list-text">ESXi 8.0U2</block>
-  <block id="43629b681eab8f23e6624067ec8d1fde" category="list-text">ESXi 8.0U1</block>
-  <block id="200d1894c9fd6ae53ee1224b58c879d1" category="list-text">ESXi 8.0GA</block>
-  <block id="83796d186e6e678e53d65b677d9068ca" category="list-text">ESXi 7.0U3</block>
   <block id="ef179550c4eb9da6a82350b32d807ed9" category="list-text">ESXi 7.0</block>
   <block id="2b2045e987020e440e1d72497530fdf6" category="list-text">只能從六節點叢集擴充至八節點叢集。</block>
   <block id="39503511d67e0af8ddd6049c24f164f7" category="list-text">只能從八節點叢集到六節點叢集進行縮減。</block>
@@ -3724,4 +3718,11 @@
   <block id="1c5ffa58ac07641f5cec5616c07b2ba2" category="sidebar">新增ONTAP Select 功能圖片</block>
   <block id="0a15f7ba73868a32304fdf52855463c9" category="sidebar">移除ONTAP Select 鏡像</block>
   <block id="afc9d68a1be701598b5ef94dc0be2844" category="sidebar">恢復雙節點叢集的部署</block>
+  <block id="b374e4bbc5d3bd65f35605cc784ed685" category="list-text">ONTAP Select 9.14.1 支援 VMware ESXi 8.0 U2 。</block>
+  <block id="5add73dc063e8420f47ce30e8a544f34" category="list-text">VMware ESXi 8.0 U3 （適用於 ONTAP 9 。 15.1P4 或任何更新版本的可用修補程式版本）</block>
+  <block id="03c073298ba0e42c4beebe1f4a065d90" category="list-text">ESXi 8.0 U3 （適用於 ONTAP 9 。 15.1P4 或任何更新版本的可用修補程式版本）</block>
+  <block id="3a13e6fcb6840db51e3e181c41dff37b" category="list-text">ESXi 8.0 U2.</block>
+  <block id="084ef93eebe5fd52d657e556b4305619" category="list-text">ESXi 8.0 U1.</block>
+  <block id="4ec8056f2f2bfb0ffa0104fc43edb1da" category="list-text">ESXi 8.0GA</block>
+  <block id="8d224631a5a87c64caecc71fee6fb612" category="list-text">ESXi 7.0 U3.</block>
 </blocks>
