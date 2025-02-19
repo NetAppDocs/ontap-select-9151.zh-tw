@@ -16,6 +16,15 @@ summary: 如果您想要在ONTAP Select 決定購買之前先評估一下「版�
 [role="lead"]
 如果您想要在ONTAP Select 決定購買之前先評估一下「版本」、就可以使用評估授權。評估版授權隨附ONTAP Select 於EView部署管理公用程式、並會在ONTAP Select 評估部署中自動套用至每個節點。
 
+[NOTE]
+====
+若要下載 ONTAP Select Deploy 管理公用程式，您需要下列項目：
+
+* 已註冊的 NetApp 支援網站帳戶。如果您沒有帳戶，請參閱 https://mysupport.netapp.com/site/user/registration["使用者登錄"^]。
+*  https://mysupport.netapp.com/site/downloads/evaluation/ontap-select["接受終端使用者授權合約"^]適用於具有評估授權的 ONTAP Select 部署。
+
+
+====
 
 
 == 授權特性

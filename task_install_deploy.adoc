@@ -22,6 +22,9 @@ summary: 您需要安裝ONTAP Select 「整合式」管理公用程式、並使�
 
 您可以從 NetApp 支援網站下載 ONTAP Select 套件。
 
+.開始之前
+https://mysupport.netapp.com/site/user/registration["您擁有註冊的 NetApp 支援網站帳戶"^]。
+
 .關於這項工作
 ONTAP Select Deploy 管理公用程式是根據開放式虛擬化格式（ OVF ）標準、封裝為虛擬機器（ VM ）。單一壓縮檔案具有後置字 `ova`元。VM 提供 ONTAP Select 節點的部署伺服器和安裝映像。
 
