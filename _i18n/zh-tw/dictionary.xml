@@ -3373,19 +3373,12 @@
   <block id="c94bc3200f704807c4c41ce4c2e2b2d8" category="paragraph">您必須為ONTAP Select 使用於叢集中的每個主機執行升級程序。</block>
   <block id="e35a91dc5473bf4a53204a2bd1366d7e" category="summary">從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從六個節點增加至八個節點、並將叢集大小從八個節點減少至六個節點。</block>
   <block id="c5f80e69da9019e045ae59cca1c9ae22" category="doc">擴充或收縮叢集</block>
-  <block id="d6746c8c49fd9df73bbb168197689da8" category="paragraph">從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從六個節點增加至八個節點、並將叢集大小從八個節點減少至六個節點。不支援其他叢集擴充或收縮情況。</block>
-  <block id="f6ad6d358dd65a1da361069309b57e39" category="paragraph">此程序是使用 CLI 、 API 或 Web 介面從 ONTAP Select 部署啟動。</block>
   <block id="412c286ae37ff7a40b56dd84c3bf196c" category="section-title">硬體與儲存需求</block>
   <block id="c9dd95ac8795512f2d676118ba8def1a" category="paragraph">叢集擴充和收縮功能受到下列限制：</block>
-  <block id="03a645906298706d76817495f4d8708a" category="list-text">支援僅限於在 ESX Hypervisor 主機上建立的叢集。下列 ESX 版本與 ONTAP Select 9.15.1 相容：</block>
   <block id="ef179550c4eb9da6a82350b32d807ed9" category="list-text">ESXi 7.0</block>
-  <block id="2b2045e987020e440e1d72497530fdf6" category="list-text">只能從六節點叢集擴充至八節點叢集。</block>
-  <block id="39503511d67e0af8ddd6049c24f164f7" category="list-text">只能從八節點叢集到六節點叢集進行縮減。</block>
   <block id="c0fa4ded01a6d24b2a77cd3a6b10e6e7" category="section-title">展開叢集</block>
   <block id="c117993f1e48f58c366f6fe0873d958b" category="paragraph">您可以使用叢集擴充功能、將現有叢集的大小從六節點增加到八節點叢集。</block>
   <block id="679ac2592315c6e7c7320336fcda4a9c" category="paragraph">在準備叢集擴充程序時、會將新的 ESX 主機新增至清單、並指派新節點的詳細資料。在開始叢集擴充程序之前、網路預先檢查會驗證所選的內部網路。</block>
-  <block id="7c96df80e019ac7201d76d07cb2c8c3b" category="inline-link-macro">網路連線檢查程式</block>
-  <block id="4ae4de42a8fcf95f1eb770acae4690f2" category="list-text">部署多節點叢集時，您應該熟悉<block ref="db3262d1c88b720b4d17a260091e6a75" category="inline-link-macro-rx"></block>。</block>
   <block id="30230ebf7e780c11cfcde8274fc17934" category="list-text">確認您擁有新節點的授權詳細資料。</block>
   <block id="70be200347cc17e3939c72792fe71b15" category="list-text">選取頁面頂端的 * 叢集 * 索引標籤、然後從清單中選取所需的叢集。</block>
   <block id="83d473b2e8f1c324b60e13d720cac51a" category="list-text">在叢集詳細資料頁面上、選取頁面右側的齒輪圖示、然後選取 * 展開叢集 * 。</block>
@@ -3680,7 +3673,6 @@
   <block id="afc9d68a1be701598b5ef94dc0be2844" category="sidebar">恢復雙節點叢集的部署</block>
   <block id="b374e4bbc5d3bd65f35605cc784ed685" category="list-text">ONTAP Select 9.14.1 支援 VMware ESXi 8.0 U2 。</block>
   <block id="5add73dc063e8420f47ce30e8a544f34" category="list-text">VMware ESXi 8.0 U3 （適用於 ONTAP 9 。 15.1P4 或任何更新版本的可用修補程式版本）</block>
-  <block id="03c073298ba0e42c4beebe1f4a065d90" category="list-text">ESXi 8.0 U3 （適用於 ONTAP 9 。 15.1P4 或任何更新版本的可用修補程式版本）</block>
   <block id="3a13e6fcb6840db51e3e181c41dff37b" category="list-text">ESXi 8.0 U2.</block>
   <block id="084ef93eebe5fd52d657e556b4305619" category="list-text">ESXi 8.0 U1.</block>
   <block id="4ec8056f2f2bfb0ffa0104fc43edb1da" category="list-text">ESXi 8.0GA</block>
@@ -3705,4 +3697,17 @@
   <block id="e0d52f0658828de62020550252885d55" category="admonition">資料 SVM 並非 ONTAP Select 叢集部署的一部分。它們必須在部署之後由叢集管理員建立。如需更多資訊、請參閱<block ref="35df8afad8b7a7c75a74b08ae370be2a" category="inline-link-rx"></block>。</block>
   <block id="c472d49cae1aabcbf09d7e5fe0e34c87" category="inline-link-macro">叢集中包含的 SVM 類型</block>
   <block id="2e6bba9624b33764642b52b2cab65274" category="list-text"><block ref="2e6bba9624b33764642b52b2cab65274" category="inline-link-macro-rx"></block></block>
+  <block id="82f452184fa717ab2fcdbde25eea3a2b" category="inline-link-macro">了解生產部署的許可證</block>
+  <block id="74d4caeb059278dbd1c813ff422126a8" category="list-text"><block ref="74d4caeb059278dbd1c813ff422126a8" category="inline-link-macro-rx"></block></block>
+  <block id="3e7c1c2f4ff8e34c82dbce131bf96f39" category="paragraph">不支援以下集群擴展和收縮：</block>
+  <block id="399ac94f70d77c6189cd7c4808326bdd" category="list-text">從一個、兩個或四個節點叢集擴展至六個或八個節點叢集。</block>
+  <block id="226d8636aca6bd1bdcac58203b8ddcd2" category="list-text">從六節點或八節點群集收縮為一節點、二節點或四節點群集。</block>
+  <block id="91af5705f16502125e8b2187e64202c0" category="inline-link-macro">命令列介面</block>
+  <block id="deb20e04b6a7cd797c67d023a7919cc9" category="inline-link-macro">網頁使用者介面</block>
+  <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">SnapMirror複製</block>
+  <block id="479ae5866a20368120075c3c81487a72" category="paragraph">若要將叢集中的節點數變更為叢集擴充或收縮不支援的大小，您需要執行下列任務：。使用<block ref="e244d19d71425b6ce1016edcf4f160e2" category="inline-link-macro-rx"></block>或<block ref="e7b95b44ed2cf30f5122b04d3c4d28be" category="inline-link-macro-rx"></block>隨ONTAP Select Deploy 管理實用程式一起提供。。如果適用，使用以下方式將資料遷移到新集群<block ref="968561cde231c01bbf82ff0390d26f84" category="inline-link-macro-rx"></block> 。</block>
+  <block id="c630ce0380a19f100f797f38c49d39bd" category="paragraph">您可以使用 CLI、API 或 Web 介面從ONTAP Select Deploy 啟動叢集擴充和收縮過程。</block>
+  <block id="e6bf3ba5fe1006a55faeef44787ee469" category="list-text">僅支援在 ESX 虛擬機器管理程式主機上建立的叢集。以下 ESX 版本與ONTAP Select 9.15.1 及更高版本相容：</block>
+  <block id="37730150d6378b2a0b04f20595d2d65a" category="list-text">ESXi 8.0 U3</block>
+  <block id="6f32bc87686311f97a78df38edf22268" category="list-text">部署多節點叢集時，您應該熟悉網路連線檢查器。您可以使用<block ref="8b785c8234405c591fd2ca6b43d87925" category="inline-link-macro-rx"></block>或<block ref="d445e69ec86af9bb8b6f10e8a87603f1" category="inline-link-macro-rx"></block> 。</block>
 </blocks>

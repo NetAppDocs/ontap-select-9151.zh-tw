@@ -14,9 +14,20 @@ summary: 從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從�
 
 
 [role="lead"]
-從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從六個節點增加至八個節點、並將叢集大小從八個節點減少至六個節點。不支援其他叢集擴充或收縮情況。
+從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從六個節點增加至八個節點、並將叢集大小從八個節點減少至六個節點。
 
-此程序是使用 CLI 、 API 或 Web 介面從 ONTAP Select 部署啟動。
+不支援以下集群擴展和收縮：
+
+* 從一個、兩個或四個節點叢集擴展至六個或八個節點叢集。
+* 從六節點或八節點群集收縮為一節點、二節點或四節點群集。
+
+
+[NOTE]
+====
+若要將叢集中的節點數變更為叢集擴充或收縮不支援的大小，您需要執行下列任務：。使用link:task_cli_deploy_cluster.html["命令列介面"]或link:task_deploy_cluster.html["網頁使用者介面"]隨ONTAP Select Deploy 管理實用程式一起提供。。如果適用，使用以下方式將資料遷移到新集群link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["SnapMirror複製"^] 。
+
+====
+您可以使用 CLI、API 或 Web 介面從ONTAP Select Deploy 啟動叢集擴充和收縮過程。
 
 
 
@@ -24,9 +35,9 @@ summary: 從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從�
 
 叢集擴充和收縮功能受到下列限制：
 
-* 支援僅限於在 ESX Hypervisor 主機上建立的叢集。下列 ESX 版本與 ONTAP Select 9.15.1 相容：
+* 僅支援在 ESX 虛擬機器管理程式主機上建立的叢集。以下 ESX 版本與ONTAP Select 9.15.1 及更高版本相容：
 +
-** ESXi 8.0 U3 （適用於 ONTAP 9 。 15.1P4 或任何更新版本的可用修補程式版本）
+** ESXi 8.0 U3
 ** ESXi 8.0 U2.
 ** ESXi 8.0 U1.
 ** ESXi 8.0GA
@@ -34,8 +45,6 @@ summary: 從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從�
 ** ESXi 7.0
 
 
-* 只能從六節點叢集擴充至八節點叢集。
-* 只能從八節點叢集到六節點叢集進行縮減。
 
 
 
@@ -48,7 +57,7 @@ summary: 從 ONTAP Select 9.15.1 開始、您可以將現有叢集的大小從�
 在準備叢集擴充程序時、會將新的 ESX 主機新增至清單、並指派新節點的詳細資料。在開始叢集擴充程序之前、網路預先檢查會驗證所選的內部網路。
 
 .開始之前
-* 部署多節點叢集時，您應該熟悉link:https://docs.netapp.com/us-en/ontap-select/task_adm_connectivity.html["網路連線檢查程式"]。
+* 部署多節點叢集時，您應該熟悉網路連線檢查器。您可以使用link:task_adm_connectivity.html["網頁使用者介面"]或link:task_cli_connectivity.html["命令列介面"] 。
 * 確認您擁有新節點的授權詳細資料。
 
 
