@@ -1911,7 +1911,6 @@
   <block id="b622687ba14734f3e63b4781b7e16324" category="paragraph-title">四節點、六節點或八節點叢集與雙節點ONTAP Select 的不二之處為何？</block>
   <block id="81cd6c8ef1512058861a9e8233376fb2" category="paragraph">不像ONTAP Select 以供選擇的四節點、六節點和八節點叢集、以供選擇使用以整合虛擬機器來建立叢集、雙節點叢集會持續仰賴ONTAP Select 以供HA仲裁使用的功能為基礎的功能來部署虛擬機器。如果ONTAP Select 無法使用此功能、就會停用容錯移轉服務。</block>
   <block id="22d02cab0c9108f9f86736e68a4be2de" category="paragraph-title">什麼是MetroCluster SDS？</block>
-  <block id="a6bd8e6869506e1e1f9d1c161d200e90" category="paragraph">不只是NetApp的「恢復營運不中斷」解決方案、更低成本的同步複寫選項。MetroCluster MetroCluster不像NetApp的《混合式Flash》、《支援雲端的NetApp私有儲存設備》、《NetApp支援雲端的私有儲存設備》、以及《NetApp支援》（NetApp）技術、這項功能只能搭配ONTAP Select 使用。MetroCluster FAS AFF FlexArray</block>
   <block id="5c13f1d93ecc5cc8fc37b87a8fedb3b7" category="paragraph-title">不只是NetApp的功能、哪些地方的不一樣？MetroCluster MetroCluster</block>
   <block id="f782a001664af23a9a479ac7f8af14db" category="paragraph">支援同步複寫解決方案的不只是NetApp的解決方案、MetroCluster MetroCluster然而、主要差異在於所支援的距離（約10公里與300公里）、以及連線類型（僅支援IP網路、而非FC與IP）。</block>
   <block id="1092371194caad84c750464b682a97f5" category="paragraph-title">雙節點ONTAP Select 的不二叢集與雙節點ONTAP MetroCluster 的不二化SDS有何不同？</block>
@@ -3710,4 +3709,5 @@
   <block id="e6bf3ba5fe1006a55faeef44787ee469" category="list-text">僅支援在 ESX 虛擬機器管理程式主機上建立的叢集。以下 ESX 版本與ONTAP Select 9.15.1 及更高版本相容：</block>
   <block id="37730150d6378b2a0b04f20595d2d65a" category="list-text">ESXi 8.0 U3</block>
   <block id="6f32bc87686311f97a78df38edf22268" category="list-text">部署多節點叢集時，您應該熟悉網路連線檢查器。您可以使用<block ref="8b785c8234405c591fd2ca6b43d87925" category="inline-link-macro-rx"></block>或<block ref="d445e69ec86af9bb8b6f10e8a87603f1" category="inline-link-macro-rx"></block> 。</block>
+  <block id="d099d0357fc4b6bd5f674bf948ccd8ef" category="paragraph">MetroCluster SDS 是一種低成本的同步複製選項，屬於NetApp的MetroCluster業務連續性解決方案類別。它僅適用於ONTAP Select，而NetApp MetroCluster則適用於FAS混合快閃記憶體、 AFF和NetApp Private Storage for Cloud。</block>
 </blocks>
