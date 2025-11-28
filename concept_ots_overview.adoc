@@ -97,6 +97,7 @@ image:ots_architecture.png["說明ONTAP Select 以部署管理公用程式建立
 * 服務處理器
 * SVM移轉
 * 符合法規SnapLock
+* SnapMirror主動同步
 * VMware HCX
 
 
