@@ -18,31 +18,29 @@ summary: 您需要安裝ONTAP Select 「整合式」管理公用程式、並使�
 
 
 
-== 下載虛擬機器映像
+== 步驟 1：下載虛擬機器映像
 
-您可以從 NetApp 支援網站下載 ONTAP Select 套件。
+從 NetApp 支援網站下載 ONTAP Select 套件。
 
 .開始之前
 https://mysupport.netapp.com/site/user/registration["您擁有註冊的 NetApp 支援網站帳戶"^]。
 
 .關於這項工作
-ONTAP Select Deploy 管理公用程式是根據開放式虛擬化格式（ OVF ）標準、封裝為虛擬機器（ VM ）。單一壓縮檔案具有後置字 `ova`元。VM 提供 ONTAP Select 節點的部署伺服器和安裝映像。
+ONTAP Select Deploy 管理實用程式以虛擬機器（VM）的形式打包，並基於開放虛擬化格式（OVF）標準。單一壓縮檔案帶有 `OVA` ESXi 主機專用後綴和 `TGZ` KVM 主機專用後綴。此虛擬機器提供 Deploy 伺服器和 ONTAP Select 節點的安裝映像。
 
 .步驟
-. 使用網頁瀏覽器存取link:https://mysupport.netapp.com/site/["NetApp 支援網站"^]並登入。
-. 從菜單中選擇 * 下載 * ，然後從下拉菜單中選擇 * 下載 * 。
-. 在 [ 下載 ] 頁面上，選取 [ 所有產品 A-Z ] 底下的字母 *O* 。
-. 向下捲動並選取 * ONTAP Select * 。
-. 選取所需的套件版本。
+. 存取 link:https://mysupport.netapp.com/site/downloads/["NetApp 支援網站下載"^] 頁面。
+. 向下捲動並選擇 *ONTAP Select Deploy*。
+. 選擇所需的 ONTAP Select 版本。
 . 檢閱終端使用者授權合約（ EULA ）、然後選取 * 接受並繼續 * 。
-. 選取並下載適當的套件、視需要回應所有提示。
+. 選擇並下載適當的 *ONTAP Select Deploy Install* 套件。視需要回應所有提示。
 
 
 
 
-== 驗證 ONTAP Select Deploy OVA 簽章
+== 步驟 2：驗證 ONTAP Select Deploy OVA 簽章
 
-安裝安裝套件之前、您應該先驗證 ONTAP Select 開放式虛擬化設備（ OVA ）的簽章。
+安裝 ONTAP Select 安裝套件之前，請先驗證 ONTAP Select Open Virtualization Appliance （OVA） 簽章。
 
 .開始之前
 確認您的系統符合下列需求：
@@ -52,7 +50,7 @@ ONTAP Select Deploy 管理公用程式是根據開放式虛擬化格式（ OVF �
 
 
 .步驟
-. 從 NetApp 支援網站上的產品下載頁面取得下列檔案：
+. 請從 NetApp 支援網站的產品下載頁面取得以下檔案：
 +
 [cols="2*"]
 |===
@@ -74,9 +72,9 @@ ONTAP Select Deploy 管理公用程式是根據開放式虛擬化格式（ OVF �
 | `ONTAPdeploy.ova.sig` | SHA-256 演算法會遭到雜湊，然後由遠端支援代理程式（ RSA ）使用 `csc-prod`安裝程式的金鑰和簽章簽署。 
 |===
 . 確認 `ONTAPdeploy.ova.sig`檔案使用的是相關的憑證和驗證命令。
-. 使用下列命令驗證簽名：
+. 驗證簽名：
 +
-[listing]
+[source, cli]
 ----
 openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTAPdeploy.ova.sig  ONTAPdeploy.ova
 ----
@@ -84,9 +82,9 @@ openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTA
 
 
 
-== 部署虛擬機器
+== 步驟 3：部署虛擬機器
 
-您必須使用 OVF VM 映像來安裝及啟動 ONTAP Select Deploy VM 。在安裝程序中、您可以將網路介面設定為使用 DHCP 或靜態 IP 組態。
+使用 OVF VM 映像安裝並啟動 ONTAP Select Deploy VM。在安裝過程中，您需要設定網路介面以使用 DHCP 或靜態 IP 組態。
 
 .開始之前
 對於 ESXi Hypervisor 、您必須準備部署 ONTAP Select Deploy VM ：
@@ -117,14 +115,14 @@ openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTA
 --
 . 存取vSphere用戶端並登入。
 . 瀏覽至階層中的適當位置、然後選取*部署OVF範本*。
-. 選取OVA檔案並完成「部署OVF範本」精靈、選取適合您環境的選項。
+. 選擇 OVA 檔案並完成 Deploy OVF Template 精靈。選擇適合您環境的選項。
 +
 您必須定義系統管理員帳戶的密碼。登入部署公用程式時、您必須提供此密碼。
 
-. 部署虛擬機器之後、請根據您對部署精靈的輸入、選取新的虛擬機器、並在尚未啟動時開啟其電源。
+. 虛擬機器部署完成後，選擇新虛擬機器。如果根據部署精靈的輸入，虛擬機器尚未啟動，請手動啟動它。
 . 如有需要、您可以使用 VM 主控台設定部署網路：
 +
-.. 按一下*主控台*索引標籤、即可存取ESXi主機設定Shell並監控開機程序。
+.. 選擇 *Console* 標籤以存取 ESXi 主機設定 shell 並監控開機程序。
 .. 等待下列提示：
 +
 主機名稱：
@@ -140,7 +138,7 @@ openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTA
 使用DHCP設定網路資訊？[n]：
 
 .. 鍵入 *n* 可定義靜態 IP 組態，或鍵入 *y* 使用 DHCP ，然後選取 *Enter* 。
-.. 如果您選擇靜態組態、請視需要提供所有網路組態資訊。
+.. 如果選擇靜態配置、請提供所有必要的網路配置資訊。
 
 
 
@@ -200,9 +198,9 @@ Use DHCP to set networking information? [n]:
 ====
 
 
-== 登入部署 Web 介面
+== 步驟 4：Sign in Deploy Web 介面
 
-您應該登入Web使用者介面、確認部署公用程式可用並執行初始組態。
+Sign in Web 使用者介面以確認 Deploy 公用程式可用並執行初始組態。
 
 .步驟
 . 使用IP位址或網域名稱、將瀏覽器指向Deploy公用程式：
@@ -220,5 +218,10 @@ Use DHCP to set networking information? [n]:
 
 
 
+.接下來：
+link:task_deploy_cluster.html["部署ONTAP Select 一個叢集"]
+
 .相關資訊
-link:task_cli_signing_in.html["登入以使用 SSH 部署"]
+* link:task_cli_signing_in.html["了解如何使用 SSH 登入 Deploy"]
+* link:deploy-evaluation-ontap-select-ovf-template.html["了解如何部署 ONTAP Select 叢集的 90 天評估執行個體"]
+
