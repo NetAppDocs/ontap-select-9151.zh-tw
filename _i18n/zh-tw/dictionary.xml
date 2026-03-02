@@ -439,7 +439,6 @@
   <block id="8ddd4ae6565aad8e0220721a3b0b115f" category="paragraph">每個使用許可管理員執行個體、以及每個對應的部署公用程式執行個體、都會以唯一的128位元號碼來識別。此數字與九位數容量資源池授權序號結合使用、可將資源池鎖定至特定的授權管理員執行個體（實際上是部署執行個體）。您必須在 NetApp 支援網站上提供這兩個值，做為產生 NetApp 授權檔案（NLF）的一部分。</block>
   <block id="c35b911ba82c4e39b4517e38d1a88551" category="paragraph">您可以使用Web使用者介面、以下列方式判斷部署執行個體的授權鎖定ID：</block>
   <block id="93147ad40002fa287e2077d09284c452" category="list-text">「快速入門」頁面此頁面會在您第一次登入部署時顯示。您也可以按一下頁面右上角的下拉式方塊、然後選取「Getting Started（使用入門）」、以顯示頁面。LLID會顯示在「新增授權」區段中。</block>
-  <block id="f51e8d01c52b31dc2ac35fcbc93eca28" category="list-text">系統管理按一下頁面頂端的「*管理*」索引標籤、然後按一下「*系統*」和「*設定*」。</block>
   <block id="bc165811908b5de0b53e3fb455b59f7d" category="section-title">基本租賃作業</block>
   <block id="e02846e806da1a115348e9fee40e2ff8" category="paragraph">每次建立、擴充或變更資料Aggregate時、均必須尋找或申請有效的容量租用。ONTAP Select您可以使用從先前的申請中取得且仍有效的租賃、或視需要申請新的租賃。下列步驟是ONTAP Select 由節點執行、以找出容量資源池租賃：</block>
   <block id="7d9520f0fa2db8b35655f9495b62e220" category="list-text">如果節點上有現有的租用、則只要符合下列所有條件、就會使用該租用：</block>
@@ -3711,4 +3710,5 @@
   <block id="25775c61c3281e6d412f48371102d8b3" category="section-title">Sign in 至 Deploy Web 介面</block>
   <block id="887ee30caedf2bee91979565f5ddf01e" category="paragraph">您應該 Sign in Web 使用者介面以確認 Deploy 公用程式可用並執行初始組態。</block>
   <block id="ccbbd15600c60abef8f9d734d84b4a4e" category="paragraph"><block ref="ccbbd15600c60abef8f9d734d84b4a4e" category="inline-link-macro-rx"></block></block>
+  <block id="f3e8670f212f7476d09305c9b4820b8c" category="list-text">管理 點選頁面頂部的 *Administration* 選項卡，然後點選 *Systems &amp; AutoSupport*。</block>
 </blocks>
