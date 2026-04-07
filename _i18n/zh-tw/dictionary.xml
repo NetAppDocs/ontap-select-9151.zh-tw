@@ -319,7 +319,6 @@
   <block id="47e419c14abec01f3f254dab003a6aba" category="section-title">雙節點HA與雙節點延伸HA（MetroCluster 不含雙節點）</block>
   <block id="568e700bfd84bf09ea449e03f0b63ec2" category="paragraph">您可以將雙節點主動/主動式HA叢集延伸至更遠的距離、並可能將每個節點放置在不同的資料中心。雙節點叢集與雙節點延伸叢集（也稱為MetroCluster 「效益SDS」）之間的唯一區別、是節點之間的網路連線距離。</block>
   <block id="576271d358b861b1da59de8d0b9547e8" category="paragraph">雙節點叢集定義為叢集、兩個節點位於同一個資料中心、距離300公尺以內。一般而言、兩個節點都有上行鏈路可連至同一個網路交換器或一組交換器間連結（ISL）網路交換器。</block>
-  <block id="4e83e8addeafe73c3acbe68952183177" category="paragraph">雙節點MetroCluster 的不完整資料SDS定義為叢集、其節點實體分隔（不同的空間、不同的建築物和不同的資料中心）超過300公尺。此外、每個節點的上行鏈路連線都會連接至不同的網路交換器。不需要專用硬體即可實現此功能。MetroCluster不過、環境應符合延遲需求（RTT最長5毫秒、不穩定性最長5毫秒、總共10毫秒）和實體距離（最大10公里）。</block>
   <block id="6aa8a3e3c7b01a983d682bcf568533c1" category="paragraph">MetroCluster SDS 是一項優質功能、需要 Premium 授權或 Premium XL 授權。Premium授權可支援建立中小型VM、以及HDD和SSD媒體。Premium XL 授權也支援 NVMe 磁碟機的建立。</block>
   <block id="526a514c4ab4ec984314911904c226e7" category="admonition">本地附加儲存設備（DAS）和共享儲存設備（vNAS）均支援使用支援的支援。MetroCluster請注意、VNAS組態通常會因為ONTAP Select 在整個過程中使用的是介於整個過程中的虛擬機器和共享儲存設備、而產生較高的內在延遲。包含共享儲存延遲在內的各個節點之間、均必須提供最多10毫秒的延遲。MetroCluster換句話說、只測量Select VM之間的延遲並不足夠、因為這些組態的共享儲存延遲並不微不足道。</block>
   <block id="8e5c75406092b84c33a434dd62222ee5" category="summary">使用RAID SyncMirror 功能（RSM2）、鏡射集合體和寫入路徑來防止資料遺失。</block>
@@ -1448,7 +1447,6 @@
   <block id="8b223dc7087ae077b733962bc5c66fff" category="list-text">單節點叢集</block>
   <block id="84c58882c8429c8f8515c3e7a653c06f" category="paragraph">此解決方案ONTAP Select 可與應用程式VM組合在一起、成為ROBO的最佳解決方案。</block>
   <block id="c351b410431306a0c6c9b4caf19ded4f" category="paragraph">使用支援功能提供企業級檔案服務、同時允許雙向複寫至其他的支援功能、可在低接觸或低成本環境中建置彈性解決方案。ONTAP Select ONTAP Select FAS隨附CIFS、NFS和iSCSI傳輸協定服務的功能授權、以及SnapMirror和還原複寫技術。ONTAP Select SnapVault因此、所有這些功能都可在部署後立即使用。</block>
-  <block id="c2389d581045462585c7d00fa4f67273" category="admonition">由於所有VMware vSphere授權均受支援、因此您可以選擇vSphere遠端辦公室分公司標準版或進階版授權、而非Enterprise或Enterprise Plus授權。現在支援所有vSphere和VSAN授權。</block>
   <block id="6c7d730bef94b94b16a0eea89a48d7ef" category="paragraph">含遠端中介器的雙節點叢集、是小型資料中心的理想解決方案。ONTAP Select在此組態中、HA功能是ONTAP Select 由供應。雙節點ONTAP Select 的「可靠性ROBO」解決方案的最低網路需求為四個1Gb連結。也支援單一10Gb網路連線。VSAN上執行的vNAS ONTAP Select 功能解決方案（包括雙節點VSAN ROBO組態）是另一個選項。在此組態中、HA功能由VSAN提供。最後、ONTAP Select 將資料複寫到核心位置的單節點VMware叢集、可在市售伺服器上提供一組強大的企業資料管理工具。</block>
   <block id="c11557a633da8e8234fe07d4d53492c4" category="paragraph">下圖說明在 VM ESXi 上使用 ONTAP Select 的一般遠端辦公室組態。排程導向的SnapMirror關係會定期將遠端辦公室的資料複寫到位於主要資料中心的單一整合式設計儲存陣列。</block>
   <block id="91b24599f00a58f1f331382707a0d6f2" category="paragraph">*將遠端辦公室的排程備份至企業資料中心*</block>
@@ -1460,7 +1458,6 @@
   <block id="2c3df213abea0ad1cb494572704542f9" category="inline-image-macro">說明部署ONTAP Select 一個叢集所需的完整工作流程。</block>
   <block id="bc0723c49208cb7ede4ce6ea0a477957" category="paragraph"><block ref="bc0723c49208cb7ede4ce6ea0a477957" category="inline-image-macro-rx" type="image"></block></block>
   <block id="efacb1c7bc46252da0083e1f56cf260c" category="summary">NetApp ONTAP Select 是軟體定義的儲存應用裝置、可部署在執行 VMware ESXi 或核心型虛擬機器（ KVM ） Hypervisor 的各種市售硬體伺服器上。它提供您建置靈活且可擴充的私有雲基礎架構所需的敏捷度。本網站包含 ONTAP Select 9.15.1 的文件。</block>
-  <block id="bada48a111e94a555bfce097b0b3ba6a" category="doc">ONTAP Select 9.15.1 文件</block>
   <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">法律聲明</block>
   <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="paragraph">法律聲明提供版權聲明、商標、專利等存取權限。</block>
   <block id="6016a2b341113bf496b719905398ecd2" category="section-title">版權</block>
@@ -1905,10 +1902,8 @@
   <block id="81cd6c8ef1512058861a9e8233376fb2" category="paragraph">不像ONTAP Select 以供選擇的四節點、六節點和八節點叢集、以供選擇使用以整合虛擬機器來建立叢集、雙節點叢集會持續仰賴ONTAP Select 以供HA仲裁使用的功能為基礎的功能來部署虛擬機器。如果ONTAP Select 無法使用此功能、就會停用容錯移轉服務。</block>
   <block id="22d02cab0c9108f9f86736e68a4be2de" category="paragraph-title">什麼是MetroCluster SDS？</block>
   <block id="5c13f1d93ecc5cc8fc37b87a8fedb3b7" category="paragraph-title">不只是NetApp的功能、哪些地方的不一樣？MetroCluster MetroCluster</block>
-  <block id="f782a001664af23a9a479ac7f8af14db" category="paragraph">支援同步複寫解決方案的不只是NetApp的解決方案、MetroCluster MetroCluster然而、主要差異在於所支援的距離（約10公里與300公里）、以及連線類型（僅支援IP網路、而非FC與IP）。</block>
   <block id="1092371194caad84c750464b682a97f5" category="paragraph-title">雙節點ONTAP Select 的不二叢集與雙節點ONTAP MetroCluster 的不二化SDS有何不同？</block>
   <block id="e390fc325e0e3f48a60a9e0c68c6a1b2" category="paragraph">雙節點叢集定義為叢集、其中兩個節點位於同一個資料中心、彼此相距300公尺以內。一般而言、兩個節點都有上行鏈路可連至同一個網路交換器、或是透過交換器間連結連線的一組網路交換器。</block>
-  <block id="e3000fa150dd97eaa370fd81237fc013" category="paragraph">雙節點MetroCluster 的ESDSDS定義為實體分隔節點的叢集（不同的空間、不同的建築物或不同的資料中心）、且每個節點的上行鏈路連線都連接至不同的網路交換器。雖然不需要專用硬體、但環境應支援一組最低的延遲需求（5毫秒RTT和5毫秒的不穩定性、最大值為10毫秒）和實體距離（10公里）MetroCluster 。</block>
   <block id="b26c3202b91162b023a9725e9e6607b8" category="paragraph">不含SDS是一項頂級功能、需要Premium或Premium XL授權。MetroClusterPremium授權可支援建立中小型VM、以及HDD和SSD媒體。支援所有這些組態。</block>
   <block id="8cfa2d102770158dc8e70d7e66b373c1" category="paragraph-title">不需要本機儲存（DAS）才能使用此功能？ONTAP MetroCluster</block>
   <block id="80fc0d552c981807521ad39072587462" category="paragraph">支援所有類型的儲存組態（DAS和vNAS）ONTAP MetroCluster 。</block>
@@ -1920,10 +1915,6 @@
   <block id="1490bd5ed0a28c21500eff09d45ae2c7" category="paragraph">否、只能將具有「內建器」的雙節點叢集設定為MetroCluster 「僅限」。</block>
   <block id="2643662b1523cd419f3e1a430c3d5ca5" category="paragraph-title">什麼是ONTAP MetroCluster 關於「介紹SDS」的要求？</block>
   <block id="6596d8aee024f01bd6f7082e0f3f3510" category="paragraph">要求如下：</block>
-  <block id="a6224d6ddba5805f1ff843d43f7d2f9d" category="list-text">三個資料中心（一個用於ONTAP Select 「支援程式」、一個用於每個節點）。</block>
-  <block id="d197104ead309ddefff131940caf98cb" category="list-text">5毫秒RTT和5毫秒的抖動、最大總長度為10毫秒、ONTAP Select 而整個實體距離則為10公里。</block>
-  <block id="62b01fa16ed3db055815d577d15770ac" category="list-text">125MS RTT、ONTAP Select 以及介於兩端部署調解器和ONTAP Select 每個節點之間的最低5Mbps頻寬。</block>
-  <block id="662b3058ddf7c74b83c16f281c0f67ff" category="list-text">Premium或Premium XL授權。</block>
   <block id="17a218f1a33ec9a62075f6e806d197be" category="paragraph-title">支援VMotion或VMware HA嗎ONTAP Select ？</block>
   <block id="78a6c1f8409fb1b96accc51e1971fbdb" category="paragraph">執行於vSAN資料存放區或外部陣列資料存放區（也就是vNAS部署）的VMware vCenter可支援VMotion、DRS及VMware HA功能。ONTAP Select</block>
   <block id="32c62abec281fb2b058ef0af1f973abc" category="paragraph-title">支援Storage VMotion嗎ONTAP Select ？</block>
@@ -2348,7 +2339,6 @@
   <block id="afd397f254d14ebaa4eb07b3b7d332fb" category="list-text">請盡可能確認所有外部儲存陣列都使用可用的備援和高可用度（ HA ）功能</block>
   <block id="297413ed02fa3433b06a3824ddf5c4c8" category="summary">規劃一套功能完整的部署時、您應該考慮幾項MetroCluster 需求。ONTAP Select</block>
   <block id="ebb5c8612468796c18d71f7263ce2f4f" category="doc">準備MetroCluster 進行不需填寫的SDS部署</block>
-  <block id="f32f31f3f65cf8fd06f0af930a71a5a1" category="paragraph">建立雙節點的叢集時、可選擇使用哪些組態選項。MetroCluster ONTAP Select它類似於遠端辦公室 / 分公司（ ROBO ）部署，但兩個節點之間的距離最多可達 10 公里。這項增強型雙節點部署提供額外的使用案例情境。在準備部署MetroCluster 環節中、您應該瞭解各項要求和限制。</block>
   <block id="fb8668e0bc658a022bb57683502e41f4" category="paragraph">部署 MetroCluster SDS 之前、請確認符合下列需求。</block>
   <block id="0b9c6eef4e3d3a222eb04e910d252339" category="paragraph-title">授權</block>
   <block id="b06ea299e97a88792e784ae5e265bc85" category="paragraph">每個節點都必須擁有優質或更高ONTAP Select 版本的不含功能的授權。</block>
@@ -3711,4 +3701,14 @@
   <block id="887ee30caedf2bee91979565f5ddf01e" category="paragraph">您應該 Sign in Web 使用者介面以確認 Deploy 公用程式可用並執行初始組態。</block>
   <block id="ccbbd15600c60abef8f9d734d84b4a4e" category="paragraph"><block ref="ccbbd15600c60abef8f9d734d84b4a4e" category="inline-link-macro-rx"></block></block>
   <block id="f3e8670f212f7476d09305c9b4820b8c" category="list-text">管理 點選頁面頂部的 *Administration* 選項卡，然後點選 *Systems &amp; AutoSupport*。</block>
+  <block id="558e06b6dd08fae765da42c411221de9" category="paragraph">雙節點 MetroCluster SDS 是指節點之間物理距離超過 300 公尺（位於不同的房間、不同的建築物或不同的資料中心）的叢集。此外，每個節點的上行鏈路都連接到獨立的網路交換器。MetroCluster SDS 不需要專用硬體。但是，環境必須滿足延遲要求（往返時間最大為 5 毫秒，抖動最大為 5 毫秒，總計 10 毫秒）。</block>
+  <block id="c337422f492f6f6f4bce841427686ed5" category="paragraph">由於所有 VMware vSphere 授權均受支援，您可以選擇 vSphere Remote Office Branch Office Standard 或 Advanced 授權，而不是 Enterprise 或 Enterprise Plus 授權。</block>
+  <block id="5b7cd8b10696b50beb601fc04fc9c316" category="paragraph">支援所有 vSphere 和 VSAN 授權。</block>
+  <block id="deceddca193158f1811fc38d701027b9" category="paragraph">MetroCluster SDS 提供同步複寫解決方案，屬於 NetApp MetroCluster 解決方案範疇。然而，一個關鍵區別在於連線類型（僅支援 IP 網路，而非 FC 和 IP）。</block>
+  <block id="935934c167ea2712b32b8d3627eb504b" category="paragraph">雙節點 MetroCluster SDS 是指由實體分離的節點（不同房間、不同建築物或不同資料中心）組成的叢集，每個節點的上行鏈路連線都連接至獨立的網路交換器。雖然 MetroCluster SDS 不需要專用硬體，但環境應符合最低延遲需求（5 毫秒 RTT 和 5 毫秒抖動，總計最多 10 毫秒）。</block>
+  <block id="c00a7b346fd0c188d653090f7d4d0c9d" category="list-text">三個資料中心（一個用於 ONTAP Select Deploy Mediator，每個節點一個）</block>
+  <block id="046bd5bd096bff2b27e500aa8d2dfa80" category="list-text">5 毫秒 RTT 和 5 毫秒抖動，總計最大 10 毫秒</block>
+  <block id="1d6a755bc579447fd7ccaf4c366f016d" category="list-text">ONTAP Select Deploy Mediator 與每個 ONTAP Select 節點之間的往返時間（RTT）為 125 毫秒，最小頻寬為 5 Mbps</block>
+  <block id="2cc135ee22f21247b52a24a050dc5f69" category="list-text">Premium 或 Premium XL 授權</block>
+  <block id="3712f888ec8c939491ff4fe2129b3d6e" category="paragraph">MetroCluster SDS 是建立雙節點 ONTAP Select 叢集時的一個配置選項。它類似於遠端辦公室/分支機構（ROBO）部署。這種增強型雙節點部署提供了更多使用案例場景。在準備部署 MetroCluster SDS 時，您應該了解其要求和限制。</block>
 </blocks>

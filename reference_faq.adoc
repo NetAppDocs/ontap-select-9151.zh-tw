@@ -247,12 +247,12 @@ VMware vCenter有幾個問題與解答。
 MetroCluster SDS 是一種低成本的同步複製選項，屬於NetApp的MetroCluster業務連續性解決方案類別。它僅適用於ONTAP Select，而NetApp MetroCluster則適用於FAS混合快閃記憶體、 AFF和NetApp Private Storage for Cloud。
 
 .不只是NetApp的功能、哪些地方的不一樣？MetroCluster MetroCluster
-支援同步複寫解決方案的不只是NetApp的解決方案、MetroCluster MetroCluster然而、主要差異在於所支援的距離（約10公里與300公里）、以及連線類型（僅支援IP網路、而非FC與IP）。
+MetroCluster SDS 提供同步複寫解決方案，屬於 NetApp MetroCluster 解決方案範疇。然而，一個關鍵區別在於連線類型（僅支援 IP 網路，而非 FC 和 IP）。
 
 .雙節點ONTAP Select 的不二叢集與雙節點ONTAP MetroCluster 的不二化SDS有何不同？
 雙節點叢集定義為叢集、其中兩個節點位於同一個資料中心、彼此相距300公尺以內。一般而言、兩個節點都有上行鏈路可連至同一個網路交換器、或是透過交換器間連結連線的一組網路交換器。
 
-雙節點MetroCluster 的ESDSDS定義為實體分隔節點的叢集（不同的空間、不同的建築物或不同的資料中心）、且每個節點的上行鏈路連線都連接至不同的網路交換器。雖然不需要專用硬體、但環境應支援一組最低的延遲需求（5毫秒RTT和5毫秒的不穩定性、最大值為10毫秒）和實體距離（10公里）MetroCluster 。
+雙節點 MetroCluster SDS 是指由實體分離的節點（不同房間、不同建築物或不同資料中心）組成的叢集，每個節點的上行鏈路連線都連接至獨立的網路交換器。雖然 MetroCluster SDS 不需要專用硬體，但環境應符合最低延遲需求（5 毫秒 RTT 和 5 毫秒抖動，總計最多 10 毫秒）。
 
 不含SDS是一項頂級功能、需要Premium或Premium XL授權。MetroClusterPremium授權可支援建立中小型VM、以及HDD和SSD媒體。支援所有這些組態。
 
@@ -271,10 +271,10 @@ MetroCluster SDS 是一種低成本的同步複製選項，屬於NetApp的MetroC
 .什麼是ONTAP MetroCluster 關於「介紹SDS」的要求？
 要求如下：
 
-* 三個資料中心（一個用於ONTAP Select 「支援程式」、一個用於每個節點）。
-* 5毫秒RTT和5毫秒的抖動、最大總長度為10毫秒、ONTAP Select 而整個實體距離則為10公里。
-* 125MS RTT、ONTAP Select 以及介於兩端部署調解器和ONTAP Select 每個節點之間的最低5Mbps頻寬。
-* Premium或Premium XL授權。
+* 三個資料中心（一個用於 ONTAP Select Deploy Mediator，每個節點一個）
+* 5 毫秒 RTT 和 5 毫秒抖動，總計最大 10 毫秒
+* ONTAP Select Deploy Mediator 與每個 ONTAP Select 節點之間的往返時間（RTT）為 125 毫秒，最小頻寬為 5 Mbps
+* Premium 或 Premium XL 授權
 
 
 .支援VMotion或VMware HA嗎ONTAP Select ？
