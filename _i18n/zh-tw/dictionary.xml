@@ -1205,8 +1205,6 @@
   <block id="d5273aeb3cd6acfd12fd971d5a6d5919" category="paragraph">多個檔案系統範圍可用來建立單一資料存放區、最多可達資料存放區的最大大小。若要限制需要ONTAP Select 使用流通證的容量、請務必在叢集安裝期間指定容量上限。此功能僅允許ONTAP Select 使用（因此需要授權）資料存放區中空間的子集。</block>
   <block id="26d0c2c18567614b2696413728c683e7" category="paragraph">或者、您可以從在單一LUN上建立單一資料存放區開始著手。如果需要更多空間、需要更大ONTAP Select 的等量資料授權、則可將該空間新增至與某個範圍相同的資料存放區、最多可增加至資料存放區的最大大小。達到最大容量後、就能建立新的資料存放區並將其新增至ONTAP Select 功能區。這兩種類型的容量擴充作業均受到支援、並可透過ONTAP 使用「支援部署儲存新增功能」來達成。每ONTAP Select 個支援多達400TB儲存容量的支援節點均可設定。從多個資料存放區配置容量需要兩個步驟的程序。</block>
   <block id="b58c5f0cafd2de6e2a43174f49b5fb62" category="paragraph">初始叢集建立可用於建立ONTAP Select 一個佔用初始資料存放區部分或全部空間的不實叢集。第二個步驟是使用其他資料存放區執行一或多個容量新增作業、直到達到所需的總容量為止。此功能詳述於一節<block ref="707976c9d65fe867eaf11be0a6ab721e" category="inline-link-macro-rx"></block>。</block>
-  <block id="1c3a0084b78822e0ed3892bb67d6be38" category="inline-link-macro">VMware知識庫1001618</block>
-  <block id="df2dd4b50329cef60defe7b0e8c9496d" category="admonition">VMFS 的負荷不是零（請參閱<block ref="9e97a6a937e133b25ea4405a923fbee9" category="inline-link-macro-rx"></block>），而且試圖使用資料存放區回報為可用的整個空間，導致叢集建立作業期間發生假性錯誤。</block>
   <block id="41ebad797f5863853e01363510672b54" category="paragraph">每個資料存放區中有2%的緩衝區未使用。這個空間不需要容量授權、因為ONTAP Select 它不供人使用。只要未指定容量上限、即可自動計算緩衝區的確切GB數。ONTAP如果指定容量上限、則會先強制執行該大小。如果容量上限大小落在緩衝區大小內、叢集建立就會失敗、並顯示錯誤訊息、指出可用做容量上限的正確最大大小參數：</block>
   <block id="f567af5ce47f1c4acb58b73b09111070" category="paragraph">VMFS 6同時支援新安裝、也支援做為現有ONTAP 的VMware部署或ONTAP Select VMware VM Storage VMotion作業的目標。</block>
   <block id="5371e21a364d5455e7007a8b43a2e885" category="paragraph">VMware不支援從VMFS 5就地升級至VMFS 6。因此、Storage VMotion是唯一允許任何VM從VMFS 5資料存放區移轉至VMFS 6資料存放區的機制。不過ONTAP Select 、除了ONTAP 從VMFS 5移轉至VMFS 6的特定目的之外、還擴大了對含VMware及VMware部署的Storage VMotion的支援、以涵蓋其他案例。</block>
@@ -3711,4 +3709,5 @@
   <block id="1d6a755bc579447fd7ccaf4c366f016d" category="list-text">ONTAP Select Deploy Mediator 與每個 ONTAP Select 節點之間的往返時間（RTT）為 125 毫秒，最小頻寬為 5 Mbps</block>
   <block id="2cc135ee22f21247b52a24a050dc5f69" category="list-text">Premium 或 Premium XL 授權</block>
   <block id="3712f888ec8c939491ff4fe2129b3d6e" category="paragraph">MetroCluster SDS 是建立雙節點 ONTAP Select 叢集時的一個配置選項。它類似於遠端辦公室/分支機構（ROBO）部署。這種增強型雙節點部署提供了更多使用案例場景。在準備部署 MetroCluster SDS 時，您應該了解其要求和限制。</block>
+  <block id="c661d298cd420b7b6d7d3a82d9089108" category="admonition">VMFS 開銷不為零（請參閱 VMware KB 1001618），嘗試使用資料儲存區報告的整個可用空間會導致叢集建立作業期間出現虛假錯誤。</block>
 </blocks>
